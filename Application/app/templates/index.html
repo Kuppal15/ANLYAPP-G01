@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Learning Prediction</title>
+</head>
+<body>
+    <h1>Machine Learning Licensing Prediction of New York Airbnb's</h1>
+    <div style="text-align: center;">
+        <form method="POST">
+            <label>Numerical inputs for Machine Learning Model:</label><br>
+            <input type="number" step="any" name="Latitude" placeholder="Latitude"><br>
+            <input type="number" step="any" name="Longitude" placeholder="Longitude"><br>
+            <input type="number" step="any" name="Price" placeholder="Price"><br>
+            <input type="number" step="any" name="Number_of_reviews" placeholder="Number of reviews"><br>
+            <input type="number" step="any" name="Calculated_host_listing_count" placeholder="Calculated host listing count"><br>
+            <input type="number" step="any" name="Availability" placeholder="Availability"><br>
+            <input type="number" step="any" name="Number_of_reviews_ltm" placeholder="Number of reviews (ltm)"><br>
+            <input type="submit" value="Predict">
+        </form>
+        {% if prediction is defined %}
+            <h2>Prediction Result: {{ prediction }}</h2>
+            <h3>
+                {% if prediction == 0 %}
+                    Property must not be issued a licensing permit.
+                {% else %}
+                    Property must be issued a licensing permit.
+                {% endif %}
+            </h3>
+        {% endif %}
+    </div>
+    <div style="text-align: center;">
+        <img src="{{ url_for('static', filename='Airbnb.png') }}" alt="Your Image" height="200"><br>
+    </div>
+</body>
+</html>
+
+
+
