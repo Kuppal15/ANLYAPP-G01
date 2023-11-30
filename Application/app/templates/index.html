@@ -2,37 +2,122 @@
 <html>
 <head>
     <title>Machine Learning Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #dddddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Machine Learning Licensing Prediction of New York Airbnb's</h1>
-    <div style="text-align: center;">
+    <div class="container">
+        <h1>Machine Learning Licensing Prediction of New York Airbnb's</h1>
+
+        <!-- Form for user input -->
         <form method="POST">
-            <label>Numerical inputs for Machine Learning Model:</label><br>
-            <input type="number" step="any" name="Latitude" placeholder="Latitude"><br>
-            <input type="number" step="any" name="Longitude" placeholder="Longitude"><br>
-            <input type="number" step="any" name="Price" placeholder="Price"><br>
-            <input type="number" step="any" name="Number_of_reviews" placeholder="Number of reviews"><br>
-            <input type="number" step="any" name="Calculated_host_listing_count" placeholder="Calculated host listing count"><br>
-            <input type="number" step="any" name="Availability" placeholder="Availability"><br>
-            <input type="number" step="any" name="Number_of_reviews_ltm" placeholder="Number of reviews (ltm)"><br>
+            <label for="Latitude">Latitude:</label><br>
+            <input type="number" step="any" name="Latitude" placeholder="Enter Latitude" required><br>
+
+            <label for="Longitude">Longitude:</label><br>
+            <input type="number" step="any" name="Longitude" placeholder="Enter Longitude" required><br>
+
+            <label for="Price">Price:</label><br>
+            <input type="number" step="any" name="Price" placeholder="Enter Price" required><br>
+
+            <label for="Number_of_reviews">Number of Reviews:</label><br>
+            <input type="number" step="any" name="Number_of_reviews" placeholder="Enter Number of Reviews" required><br>
+
+            <label for="Calculated_host_listing_count">Calculated Host Listing Count:</label><br>
+            <input type="number" step="any" name="Calculated_host_listing_count" placeholder="Enter Calculated Host Listing Count" required><br>
+
+            <label for="Availability">Availability:</label><br>
+            <input type="number" step="any" name="Availability" placeholder="Enter Availability" required><br>
+
+            <label for="Number_of_reviews_ltm">Number of Reviews Last Twelve Months:</label><br>
+            <input type="number" step="any" name="Number_of_reviews_ltm" placeholder="Enter Number of Reviews (ltm)" required><br>
+
             <input type="submit" value="Predict">
         </form>
+
+        <!-- Display prediction result -->
         {% if prediction is defined %}
-            <h2>Prediction Result: {{ prediction }}</h2>
-            <h3>
-                {% if prediction == 0 %}
-                    Property must not be issued a licensing permit.
-                {% else %}
-                    Property must be issued a licensing permit.
-                {% endif %}
-            </h3>
+            <div>
+                <h2>Prediction Result: {{ prediction }}</h2>
+                <h3>
+                    {% if prediction == 0 %}
+                        Property must not be issued a licensing permit.
+                    {% else %}
+                        Property must be issued a licensing permit.
+                    {% endif %}
+                </h3>
+            </div>
         {% endif %}
-    </div>
-    <div style="text-align: center;">
-        <img src="{{ url_for('static', filename='Airbnb.png') }}" alt="Your Image" height="200"><br>
+
+        <!-- Variable details table -->
+        <table>
+            <tr>
+                <th>Variable</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Latitude</td>
+                <td>Geographical coordinate that specifies the north-south position of a point on the Earth's surface.</td>
+            </tr>
+            <tr>
+                <td>Longitude</td>
+                <td>Geographical coordinate that specifies the east-west position of a point on the Earth's surface.</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>Price of the Airbnb property.</td>
+            </tr>
+            <tr>
+                <td>Number_of_reviews</td>
+                <td>Total number of reviews received by the property.</td>
+            </tr>
+            <tr>
+                <td>Calculated_host_listing_count</td>
+                <td>Number of listings that the host has.</td>
+            </tr>
+            <tr>
+                <td>Availability</td>
+                <td>Number of days the property is available for booking in a year.</td>
+            </tr>
+            <tr>
+                <td>Number_of_reviews_ltm</td>
+                <td>Number of reviews received in the last twelve months.</td>
+            </tr>
+        </table>
+
+        <!-- Image -->
+        <div>
+            <img src="{{ url_for('static', filename='Airbnb.png') }}" alt="Airbnb Logo" height="200">
+        </div>
     </div>
 </body>
 </html>
-
 
 

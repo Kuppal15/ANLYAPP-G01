@@ -12,26 +12,31 @@ with open("trainedmodel/StackedPickle.pkl", 'rb') as model_file:
 @app.route("/", methods=['GET', 'POST'])
 def make_prediction():
     if request.method == 'POST':
-        features = [
-            float(request.form['Latitude']),
-            float(request.form['Longitude']),
-            float(request.form['Price']),
-            float(request.form['Number_of_reviews']),
-            float(request.form['Calculated_host_listing_count']),
-            float(request.form['Availability']),
-            float(request.form['Number_of_reviews_ltm'])
-        ]
+        # Extracting user input from the form
+        latitude = float(request.form['Latitude'])
+        longitude = float(request.form['Longitude'])
+        price = float(request.form['Price'])
+        num_reviews = float(request.form['Number_of_reviews'])
+        host_listings_count = float(request.form['Calculated_host_listing_count'])
+        availability = float(request.form['Availability'])
+        num_reviews_ltm = float(request.form['Number_of_reviews_ltm'])
 
-        # Process the features and make a prediction using the model
-        features = np.array(features)
-        inputs = features.reshape(1, -1)
-        prediction = model.predict(inputs)[0]
+        # Creating a feature vector for prediction
+        features = [latitude, longitude, price, num_reviews, host_listings_count, availability, num_reviews_ltm]
+        features = np.array(features).reshape(1, -1)
+
+        # Making a prediction using the pre-trained model
+        prediction = model.predict(features)[0]
         
-        # Return the prediction to the HTML template
-        return render_template("index.html", prediction=prediction)
+        # Return the prediction to the HTML template along with variable descriptions
+        return render_template("index.html", prediction=prediction,
+                               latitude=latitude, longitude=longitude, price=price,
+                               num_reviews=num_reviews, host_listings_count=host_listings_count,
+                               availability=availability, num_reviews_ltm=num_reviews_ltm)
     
     # If it's a GET request or form submission is not valid, render the form
     return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
+
