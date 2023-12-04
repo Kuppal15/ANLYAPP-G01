@@ -6,7 +6,7 @@ import pickle
 app = Flask(__name__)
 
 # Load the pre-trained pickle model
-with open("trainedmodel/StackedPickle.pkl", 'rb') as model_file:
+with open("./app/trainedmodel/StackedPickle.pkl", 'rb') as model_file:
     model = pickle.load(model_file)
 
 @app.route("/", methods=['GET', 'POST'])
